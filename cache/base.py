@@ -11,8 +11,7 @@ class CacheStats:
     misses: int = 0
     evictions: int = 0
     gets: int = 0
-    sets: int = 0
-
+    puts: int = 0
 
 class Cache(ABC, Generic[K, V]):
     """
@@ -23,12 +22,15 @@ class Cache(ABC, Generic[K, V]):
 
     @abstractmethod
     def get(self, key: K) -> Optional[V]:
+        """
+        Return value associated with key if exists within cache and not expired, None otherwise.
+        """
         ...
 
     @abstractmethod
-    def set(self, key: K, value: V, ttl: Optional[float] = None) -> None:
+    def put(self, key: K, value: V, ttl: Optional[float] = None) -> None:
         """
-        ttl is in seconds. If None: no expiration.
+        ttl is in seconds. If ttl is None, entry has no expiration.
         """
         ...
 
@@ -41,6 +43,9 @@ class Cache(ABC, Generic[K, V]):
 
     @abstractmethod
     def get_stats(self) -> CacheStats:
+        """
+        Returns collected stats for gets, puts, hits, misses, and evictions.
+        """
         ...
 
     @abstractmethod
