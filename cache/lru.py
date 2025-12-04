@@ -33,7 +33,7 @@ class LRUCache(Cache[K, V], Generic[K, V]):
         self._lock = Lock()
         self._stats = CacheStats()
 
-    def _add_to_front(self, node):
+    def _add_to_front(self, node) -> None:
         """Insert node at front of list after head node"""
         if node.prev is not None or node.next is not None:
             raise RuntimeError("Attempting to add a node that already contains linkages")
@@ -44,7 +44,7 @@ class LRUCache(Cache[K, V], Generic[K, V]):
         self.head.next.prev = node
         self.head.next = node
 
-    def _remove(self, node):
+    def _remove(self, node) -> None:
         """Remove node from list"""
         if node is self.head or node is self.tail:
             return
@@ -60,7 +60,7 @@ class LRUCache(Cache[K, V], Generic[K, V]):
         node.prev = None
         node.next = None
 
-    def _move_to_front(self, node):
+    def _move_to_front(self, node) -> None:
         """
         Move selected node to the front of our DLL. Useful for refreshing what the most recently used node was
         """
