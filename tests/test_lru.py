@@ -1,9 +1,4 @@
-import pytest
-from .conftest import small_cache
 import time
-
-from cache.lru import LRUCache
-
 
 def test_get_on_missing_key_returns_none_and_counts_miss(small_cache):
     assert small_cache.get("missing") is None
@@ -16,8 +11,6 @@ def test_get_on_missing_key_returns_none_and_counts_miss(small_cache):
 
 
 def test_basic_put_and_get_and_overwrite(small_cache):
-    small_cache = LRUCache[str, int](capacity=2)
-
     small_cache.put("a", 1)
     small_cache.put("b", 2)
 
