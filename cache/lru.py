@@ -167,14 +167,15 @@ class LRUCache(Cache[K, V], Generic[K, V]):
         """
         Returns collected stats for gets, puts, hits, misses, and evictions.
         """
-        stats = self._stats
-        return CacheStats(
-            hits=stats.hits,
-            misses=stats.misses,
-            evictions=stats.evictions,
-            gets=stats.gets,
-            puts=stats.puts
-        )
+        with self._lock:
+            stats = self._stats
+            return CacheStats(
+                hits=stats.hits,
+                misses=stats.misses,
+                evictions=stats.evictions,
+                gets=stats.gets,
+                puts=stats.puts
+            )
 
     def clear(self) -> None:
         """

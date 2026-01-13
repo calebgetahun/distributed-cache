@@ -10,10 +10,8 @@ def run_server(host: str = "127.0.0.1", port: int = 9000, capacity: int = 1000) 
     """
     Start a TCP server on (host, port) using an in-memory cache.
     """
-    cache: Cache[str, str] = CacheFactory.create_cache(
-        capacity=capacity,
-        policy=EvictionPolicy.LRU,
-    )
+    cache = CacheFactory.create_cache(capacity=capacity, policy=EvictionPolicy.LRU, shards=1)
+
 
     server_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -57,7 +55,6 @@ def handle_client(client_sock: socket.socket, cache: Cache[str, str]) -> None:
                 response = process_command(cmd_line, cache)
 
                 if response is None:
-                    # e.g., QUIT command: close connection
                     return
 
                 client_sock.sendall(response.encode("utf-8") + b"\n")
