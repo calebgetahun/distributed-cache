@@ -1,0 +1,7 @@
+{
+  "host": "127.0.0.1",
+  "port": 9000,
+  "owned_shards": [0, 1],
+  "capacity": 1000,
+  "policy": "LRU"
+}

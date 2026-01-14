@@ -11,11 +11,15 @@ Address = Tuple[str, int] # (host, port)
 @dataclass(frozen=True)
 class CacheNodeConfig:
     node_id: str
+    host: str
+    port: int
+
     n_shards: int
     owned_shards: Set[int]
     cluster_map: Dict[int, Address]
+
     capacity: int
-    policy: EvictionPolicy
+    policy: EvictionPolicy = EvictionPolicy.LRU
 
 class CacheNode:
     def __init__(self, cfg: CacheNodeConfig):
