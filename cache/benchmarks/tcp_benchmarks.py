@@ -11,7 +11,7 @@ import time
 HOST = "127.0.0.1"
 PORT = 9000
 
-OPS = 1_000_000        # total operations to send
+OPS = 50_000     # total operations to send
 KEYSPACE = 10_000   # number of rotating keys
 READ_RATIO = 0.5    # 50% GET, 50% PUT
 
@@ -84,7 +84,6 @@ def main():
     print(f"  p50 = {p50:.3f}")
     print(f"  p95 = {p95:.3f}")
     print(f"  p99 = {p99:.3f}")
-
 
 if __name__ == "__main__":
     main()

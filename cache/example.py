@@ -2,7 +2,7 @@ from .factory import CacheFactory
 from .eviction import EvictionPolicy
 import time
 
-# Example usage of the LRU cache using CacheFactory
+# Example usage of the LRU cache using CacheFactory. IMPORTANT: not meant to be production example
 lru_cache = CacheFactory.create_cache(
     capacity=3,
     policy=EvictionPolicy.LRU

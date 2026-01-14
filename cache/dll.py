@@ -2,9 +2,9 @@ from dataclasses import dataclass
 from typing import Any, Hashable, Optional
 
 @dataclass
-class Node:
+class DLLNode:
     key: Optional[Hashable] = None
     val: Any = None
-    prev: Optional["Node"] = None
-    next: Optional["Node"] = None
+    prev: Optional["DLLNode"] = None
+    next: Optional["DLLNode"] = None
     expiration_time: Optional[float] = None  # UNIX timestamp

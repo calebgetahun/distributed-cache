@@ -1,18 +1,18 @@
 import time
-from .factory import CacheFactory
-from .eviction import EvictionPolicy
+from ..factory import CacheFactory
+from ..eviction import EvictionPolicy
 
 def benchmark_lru(
     capacity=100,
     n_ops=10_000_000,
-    read_ratio=0.9,  #HIGH write ratio 
+    read_ratio=0.1,  #HIGH write ratio 
 ):
     print(f"--- LRU Microbenchmark ---")
     print(f"Capacity: {capacity}")
     print(f"Operations: {n_ops:,}")
     print(f"Read ratio: {read_ratio * 100:.0f}%\n")
 
-    cache = CacheFactory.create_cache(capacity, EvictionPolicy.LRU)
+    cache = CacheFactory.create_local_cache(capacity, EvictionPolicy.LRU)
 
     # Warm-up phase: fill cache to capacity
     print("Warming up cache...")
@@ -27,11 +27,11 @@ def benchmark_lru(
 
         if (i % 100) < (read_ratio * 100):
             # GET operation
-            # cache.get(key)
+            cache.get(key)
             pass
         else:
             # SET operation
-            # cache.put(key, i)
+            cache.put(key, i)
             pass
 
     end = time.perf_counter()

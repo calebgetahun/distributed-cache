@@ -4,7 +4,7 @@ from threading import Lock
 from typing import Dict, Optional, TypeVar, Generic, Hashable
 
 from .base import Cache, CacheStats
-from .node import Node
+from .dll import DLLNode
 
 K = TypeVar("K", bound=Hashable)
 V = TypeVar("V")
@@ -21,11 +21,11 @@ class LRUCache(Cache[K, V], Generic[K, V]):
             raise ValueError("LRUCache capacity must be > 0")
     
         self.capacity = capacity
-        self.cache: Dict[K, Node] = {}
+        self.cache: Dict[K, DLLNode] = {}
 
         #sentinel heads for easier pointer usage
-        self.head = Node()
-        self.tail = Node()
+        self.head = DLLNode()
+        self.tail = DLLNode()
 
         self.head.next = self.tail
         self.tail.prev = self.head
@@ -73,7 +73,7 @@ class LRUCache(Cache[K, V], Generic[K, V]):
         self._remove(node)
         self._add_to_front(node)
 
-    def _pop_lru(self) -> Optional[Node]:
+    def _pop_lru(self) -> Optional[DLLNode]:
         """
         Remove and return the least recently used *real* node.
         Returns None if cache is empty.
@@ -85,7 +85,7 @@ class LRUCache(Cache[K, V], Generic[K, V]):
         self._remove(to_remove)
         return to_remove
     
-    def _is_expired(self, node: Node, now: Optional[float] = None) -> bool:
+    def _is_expired(self, node: DLLNode, now: Optional[float] = None) -> bool:
         """
         Check if node is expired given the ttl it currently holds
         """
@@ -97,7 +97,7 @@ class LRUCache(Cache[K, V], Generic[K, V]):
             now = time.time()
         return now >= node.expiration_time
     
-    def _delete_node(self, key: K, node: Node) -> None:
+    def _delete_node(self, key: K, node: DLLNode) -> None:
         """
         deletes a node from the cache and DLL
         """
@@ -140,7 +140,7 @@ class LRUCache(Cache[K, V], Generic[K, V]):
                 
                 return
 
-            new_node = Node(key, value)
+            new_node = DLLNode(key, value)
             new_node.expiration_time = expiration_time
             self._add_to_front(new_node)
             self.cache[key] = new_node
