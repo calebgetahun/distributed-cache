@@ -1,21 +1,13 @@
 # Distributed Cache
 
-A modular caching system implemented in Python, featuring a thread-safe cache with TTL support and pluggable eviction policies. This repository is structured to support future expansion toward a networked, multi-node distributed cache.
+⚠️ **Experimental / R&D Repository**  
+This repo contains exploratory work around caching and early distributed-system experiments.  
+
+👉 The polished, production-oriented **in-process cache library** lives here:  
+https://github.com/calebgetahun/localcache
 
 ---
-## Setup + Testing
-Clone the repository and optionally create a virtual environment: 
-
-```bash
-git clone https://github.com/calebgetahun/distributed-cache.git
-cd distributed-cache
-
-python3 -m venv venv
-source venv/bin/activate  # optional
-
-#for testing
-pytest
-```
+A modular caching system implemented in Python, featuring a thread-safe cache with TTL support and pluggable eviction policies. This repository is structured to support future expansion toward a networked, multi-node distributed cache.
 
 ---
 ## Features
@@ -24,7 +16,8 @@ pytest
 - Optional TTL-based expiration  
 - Thread-safe operations  
 - Basic cache statistics (hits, misses, evictions, etc.)  
-- Unit tests for core behavior  
+- Unit tests for core behavior
+- Local sharding with N caches each with per shard eviction
 
 ---
 ## Usage Example
