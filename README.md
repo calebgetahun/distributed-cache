@@ -4,7 +4,7 @@
 This repo contains exploratory work around caching and early distributed-system experiments.  
 
 👉 The polished, production-oriented **in-process cache library** lives here:  
-https://github.com/calebgetahun/localcache
+https://github.com/calebgetahun/cachelocal
 
 ---
 A modular caching system implemented in Python, featuring a thread-safe cache with TTL support and pluggable eviction policies. This repository is structured to support future expansion toward a networked, multi-node distributed cache.
